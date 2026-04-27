@@ -1,10 +1,8 @@
 # 🤖 AI-Powered Resume Screener & Job Match System
-## 🔴 Live Demo
+## Live Demo
 👉 **Try it here:** https://resume-screener-livid.vercel.app
-
 ## 🛠️ API
 🔗 **Backend API:** https://resume-screener-0er2.onrender.com/docs
-
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green)
 ![React](https://img.shields.io/badge/React-Vite-cyan)
