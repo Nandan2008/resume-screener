@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone"
 import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts"
 import { FileText, Briefcase, Brain, ChevronRight, AlertCircle, CheckCircle, BookOpen } from "lucide-react"
 
-const API = "http://127.0.0.1:8000"
+const API = "https://resume-screener-0er2.onrender.com"
 
 function ScoreGauge({ score }) {
   const data = [{ value: score, fill: score >= 75 ? "#22c55e" : score >= 50 ? "#f59e0b" : score >= 30 ? "#f97316" : "#ef4444" }]
