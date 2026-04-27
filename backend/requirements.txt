@@ -7,8 +7,6 @@ nltk
 scikit-learn
 numpy
 pandas
-sentence-transformers
-torch
 google-generativeai
 python-dotenv
 pydantic

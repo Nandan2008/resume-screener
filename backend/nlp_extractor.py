@@ -5,7 +5,7 @@ from nltk.tokenize import word_tokenize
 import re
 
 # Load spaCy model
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_sm")
 
 # Skills database
 SKILLS_DB = [

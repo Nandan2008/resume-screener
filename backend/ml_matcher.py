@@ -1,10 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from sentence_transformers import SentenceTransformer
 import numpy as np
-
-# Load sentence transformer model
-semantic_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def tfidf_match_score(resume_text: str, job_text: str) -> float:
     """Calculate match score using TF-IDF + Cosine Similarity"""
@@ -16,14 +12,22 @@ def tfidf_match_score(resume_text: str, job_text: str) -> float:
     except Exception as e:
         return 0.0
 
-def semantic_match_score(resume_text: str, job_text: str) -> float:
-    """Calculate match score using Sentence Transformers"""
-    try:
-        embeddings = semantic_model.encode([resume_text, job_text])
-        score = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
-        return round(float(score) * 100, 2)
-    except Exception as e:
+def semantic_match_score(resume_skills: list, job_skills: list) -> float:
+    """Calculate match score using Jaccard Similarity of skills"""
+    if not job_skills:
         return 0.0
+        
+    resume_set = set([s.lower() for s in resume_skills])
+    job_set = set([s.lower() for s in job_skills])
+    
+    intersection = resume_set.intersection(job_set)
+    union = resume_set.union(job_set)
+    
+    if not union:
+        return 0.0
+        
+    score = len(intersection) / len(union)
+    return round(float(score) * 100, 2)
 
 def get_missing_skills(resume_skills: list, job_skills: list) -> list:
     """Find skills in job description that are missing from resume"""
@@ -53,7 +57,7 @@ def match_resume_to_job(
 ) -> dict:
     """Main function — full matching analysis"""
     tfidf_score = tfidf_match_score(resume_text, job_text)
-    semantic_score = semantic_match_score(resume_text, job_text)
+    semantic_score = semantic_match_score(resume_skills, job_skills)
     final_score = calculate_final_score(tfidf_score, semantic_score)
 
     return {
